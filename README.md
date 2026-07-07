@@ -4,6 +4,10 @@ Proyecto frontend tipo maqueta para visualizar y simular módulos SATCONTROL rel
 
 La aplicación es principalmente HTML, CSS y JavaScript. No usa base de datos real ni backend complejo; el servidor local solo sirve archivos estáticos.
 
+## Acceso a la maqueta
+
+**Demo en línea:** https://andrealopezco20.github.io/maqueta_v1/login/login.html
+
 ## Cómo ejecutar el proyecto
 
 Requisito:
