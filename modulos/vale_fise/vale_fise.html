@@ -1515,14 +1515,6 @@ html body .main.dashboard-fise-mode .floating-chat{right:16px!important;bottom:1
               </svg>
               <span>Capas</span>
             </button>
-            <button class="ge-action-btn map-upload-action" title="Subir capas GIS" id="uploadLayerBtn" aria-label="Subir capas GIS">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 16V5"></path>
-                <path d="M8 9l4-4 4 4"></path>
-                <path d="M5 19h14"></path>
-              </svg>
-              <span>Subir capas</span>
-            </button>
             <button class="ge-action-btn" id="tematicosBtn" title="Seleccionar mapas temáticos">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 19h14"></path>
@@ -1551,17 +1543,15 @@ html body .main.dashboard-fise-mode .floating-chat{right:16px!important;bottom:1
           <div class="map-floating-panel" id="layersPanel">
             <div class="floating-title">Capas superpuestas</div>
             <label class="layer-option"><input type="checkbox" id="layerEstrato" checked><span>Estrato / lotes</span></label>
-            <label class="layer-option"><input type="checkbox" id="layerBeneficiarios" checked><span>Beneficiarios Ahorro GNV</span></label>
+            <label class="layer-option"><input type="checkbox" id="layerBenActivo" checked><span>Beneficiario activo</span></label>
+            <label class="layer-option"><input type="checkbox" id="layerBenSuspendido" checked><span>Beneficiario suspendido</span></label>
+            <label class="layer-option"><input type="checkbox" id="layerBenExcluido" checked><span>Beneficiario excluido</span></label>
             <label class="layer-option"><input type="checkbox" id="layerCobertura" checked><span>Cobertura</span></label>
             <label class="layer-option"><input type="checkbox" id="layerTalleres" checked><span>Talleres autorizados GNV</span></label>
             <label class="layer-option"><input type="checkbox" id="layerDistritos"><span>Distritos delimitados</span></label>
             <div class="layer-legend">
               <div class="legend-row"><span class="legend-circle"></span>Cobertura referencial</div>
               <div class="legend-row"><span class="legend-line" style="border-color:#22c55e"></span>Talleres autorizados GNV</div>
-            </div>
-            <div class="layer-legend" style="margin-top:8px">
-              <div class="floating-title">Capas cargadas</div>
-              <div id="uploadedLayersList" class="uploaded-layers-list"><div class="uploaded-empty">No hay capas cargadas</div></div>
             </div>
           </div>
           <div class="district-panel" id="districtsPanel">
@@ -1580,23 +1570,10 @@ html body .main.dashboard-fise-mode .floating-chat{right:16px!important;bottom:1
           </div>
           <div class="map-floating-panel" id="themesPanel">
             <div class="floating-title">Mapas temáticos</div>
-            <label class="layer-option"><input type="checkbox" id="layerConsumo"><span>Mapa de calor · Consumos GNV</span></label>
-            <div class="theme-subtitle">Identifica migración de vehículos entre zonas, corredores con mayor carga y puntos de alta demanda.</div>
+            <label class="layer-option"><input type="checkbox" id="layerThemeValeDensity"><span>Densidad de beneficiarios</span></label>
+            <div class="theme-subtitle">Visualiza la concentración territorial del padrón Vale FISE y filtra beneficiarios según su estado.</div>
             <div class="layer-legend">
-              <div class="legend-row"><span class="heat-gradient consumption" style="width:86px;height:11px"></span>Consumo / densidad vehicular</div>
-              <div class="legend-row"><span class="heat-color" style="background:#38bdf8"></span>Demanda baja</div>
-              <div class="legend-row"><span class="heat-color" style="background:#34d399"></span>Demanda media</div>
-              <div class="legend-row"><span class="heat-color" style="background:#f59e0b"></span>Alta afluencia</div>
-              <div class="legend-row"><span class="heat-color" style="background:#ef4444"></span>Pico crítico</div>
-            </div>
-            <div class="theme-section-label">Cobranza y recaudación</div>
-            <label class="layer-option"><input type="checkbox" id="layerMorosidad"><span>Mapa de calor · Morosidad</span></label>
-            <div class="layer-legend">
-              <div class="legend-row"><span class="heat-gradient" style="width:86px;height:11px"></span>Pendiente de recaudación</div>
-              <div class="legend-row"><span class="heat-color heat-low"></span>Baja morosidad</div>
-              <div class="legend-row"><span class="heat-color heat-mid"></span>Morosidad media</div>
-              <div class="legend-row"><span class="heat-color heat-high"></span>Alta morosidad</div>
-              <div class="legend-row"><span class="heat-color heat-critical"></span>Morosidad crítica</div>
+              <div class="legend-row"><span style="width:86px;height:11px;border-radius:4px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444,#7f1d1d)"></span>Densidad de beneficiarios</div>
             </div>
           </div>
           <div class="map-floating-panel" id="satellitePanel" style="left:280px">
@@ -1722,14 +1699,6 @@ html body .main.dashboard-fise-mode .floating-chat{right:16px!important;bottom:1
                   </svg>
                   <span>Capas</span>
                 </button>
-                <button id="fiseUploadLayerBtn" title="Subir capas">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 16V5"></path>
-                    <path d="M8 9l4-4 4 4"></path>
-                    <path d="M5 19h14"></path>
-                  </svg>
-                  <span>Subir capas</span>
-                </button>
                 <button id="fiseTematicosBtn" title="Temáticos">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M5 19h14"></path>
@@ -1755,28 +1724,15 @@ html body .main.dashboard-fise-mode .floating-chat{right:16px!important;bottom:1
               </div>
               <div class="fise-map-floating-panel" id="fiseLayersPanel">
                 <div class="floating-title">Capas superpuestas</div>
-                <label class="layer-option"><input type="checkbox" id="fiseLayerBeneficiarios" checked><span>Beneficiarios Vale FISE</span></label>
-                <label class="layer-option"><input type="checkbox" id="fiseLayerRegion" checked><span>Región / Cobertura</span></label>
-                <label class="layer-option"><input type="checkbox" id="fiseLayerHeat"><span>Mapa de calor · densidad</span></label>
+                <label class="layer-option"><input type="checkbox" id="fiseLayerActive" checked><span>Beneficiario activo</span></label>
+                <label class="layer-option"><input type="checkbox" id="fiseLayerSuspended" checked><span>Beneficiario suspendido</span></label>
+                <label class="layer-option"><input type="checkbox" id="fiseLayerExcluded" checked><span>Beneficiario excluido</span></label>
                 <div class="layer-legend">
-                  <div class="legend-row"><span style="width:86px;height:11px;border-radius:4px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444,#7f1d1d)"></span>Densidad de beneficiarios</div>
-                  <div class="legend-row"><span class="legend-circle" style="background:#22d3ee"></span>Beneficiario activo</div>
-                  <div class="legend-row"><span class="legend-circle" style="background:#f59e0b"></span>Beneficiario suspendido</div>
-                  <div class="legend-row"><span class="legend-circle" style="background:#ef4444"></span>Beneficiario excluido</div>
-                </div>
-                <div class="layer-legend" style="margin-top:8px">
-                  <div class="floating-title">Capas cargadas</div>
-                  <div id="fiseUploadedLayersList" class="uploaded-layers-list"><div class="uploaded-empty">No hay capas cargadas</div></div>
                 </div>
               </div>
               <div class="fise-map-floating-panel" id="fiseThemesPanel">
                 <div class="floating-title">Mapas temáticos</div>
-                <label class="layer-option"><input type="checkbox" id="fiseLayerThemeEntity"><span>Por entidad gestora</span></label>
-                <label class="layer-option"><input type="checkbox" id="fiseLayerThemeZone"><span>Por zona rural / urbana</span></label>
-                <label class="layer-option"><input type="checkbox" id="fiseLayerThemeStatus"><span>Por estado del beneficiario</span></label>
-                <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:#93a4c7;line-height:1.4">
-                  <b style="color:#67e8f9">Densidad por distrito:</b> active <b>Mapa de calor · densidad</b> en Capas para identificar zonas con baja cobertura del Vale GLP. El gradiente verde→naranja→rojo indica baja→media→alta densidad.
-                </div>
+                <label class="layer-option"><input type="checkbox" id="fiseLayerHeat"><span>Densidad de beneficiarios</span></label>
               </div>
               <div class="fise-map-floating-panel" id="fiseSatellitePanel" style="left:252px">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><div class="floating-title" style="margin-bottom:0">Índices</div><button type="button" aria-label="Cerrar Índices Vale FISE" title="Cerrar" style="width:28px;height:28px;border:1px solid #334155;border-radius:8px;background:#111a31;color:#e2e8f0;font-size:20px;font-weight:900;line-height:1;cursor:pointer" onclick="event.preventDefault();event.stopPropagation();this.closest('#fiseSatellitePanel').classList.remove('open')">×</button></div>
@@ -2112,6 +2068,10 @@ const baseLayers={};
 function polygonBox(lat,lng,w,h,props){return {type:'Feature',properties:props,geometry:{type:'Polygon',coordinates:[[[lng-w,lat-h],[lng+w,lat-h],[lng+w,lat+h],[lng-w,lat+h],[lng-w,lat-h]]]}};}
 function buildEstratoGeoJSON(centerLat,centerLng){const supplies=[{suministro:'SUM-ARQ-0001',tipoSuministro:'Residencial',beneficiario:'María Quispe Huamán',fechaInstalacion:'2026-04-23',estadoInstalacion:'Conectado',inicioConstruccion:'2026-04-01',empresaInstaladora:'GasSur Instalaciones S.A.C.'},{suministro:'SUM-ARQ-0002',tipoSuministro:'Residencial',beneficiario:'José Mamani Flores',fechaInstalacion:'2026-04-18',estadoInstalacion:'En construcción',inicioConstruccion:'2026-04-18',empresaInstaladora:'Andes Gas Contratistas'},{suministro:'SUM-ARQ-0003',tipoSuministro:'No residencial',beneficiario:'Bodega San Lázaro',fechaInstalacion:'2026-04-10',estadoInstalacion:'Conectado',inicioConstruccion:'2026-03-28',empresaInstaladora:'RedGas Perú S.A.C.'},{suministro:'SUM-ARQ-0004',tipoSuministro:'Residencial',beneficiario:'Rosa Condori Arias',fechaInstalacion:'2026-04-26',estadoInstalacion:'En construcción',inicioConstruccion:'2026-04-26',empresaInstaladora:'TecnoGas Arequipa'},{suministro:'SUM-ARQ-0005',tipoSuministro:'Residencial',beneficiario:'Luis Apaza Quispe',fechaInstalacion:'2026-04-05',estadoInstalacion:'Conectado',inicioConstruccion:'2026-03-20',empresaInstaladora:'GasSur Instalaciones S.A.C.'}];return {type:'FeatureCollection',features:[polygonBox(centerLat+.003,centerLng-.004,.0022,.0014,Object.assign({estrato:'Alto',hogares:45,estado:'Validado'},supplies[0])),polygonBox(centerLat-.002,centerLng+.003,.0025,.0016,Object.assign({estrato:'Medio',hogares:73,estado:'En evaluación'},supplies[1])),polygonBox(centerLat+.001,centerLng+.006,.0017,.0013,Object.assign({estrato:'Bajo',hogares:39,estado:'Prioritario'},supplies[2])),polygonBox(centerLat-.004,centerLng-.002,.0021,.0012,Object.assign({estrato:'Medio',hogares:51,estado:'Observado'},supplies[3])),polygonBox(centerLat+.005,centerLng+.001,.0016,.0011,Object.assign({estrato:'Bajo',hogares:27,estado:'Prioritario'},supplies[4]))]};}
 function styleEstrato(f){const e=f.properties.estrato;return {color:e==='Bajo'?'#ef4444':e==='Medio'?'#f59e0b':'#a7f3d0',weight:2,fillColor:e==='Bajo'?'#dc2626':e==='Medio'?'#d97706':'#d9f99d',fillOpacity:.45};}
+function getValeBeneficiaryLayerStates(){return {activo:qs('#layerBenActivo')?.checked??true,suspendido:qs('#layerBenSuspendido')?.checked??true,excluido:qs('#layerBenExcluido')?.checked??true};}
+function valeBeneficiaryStateVisible(estado,states=getValeBeneficiaryLayerStates()){if(estado==='Activo')return states.activo;if(estado==='Suspendido')return states.suspendido;if(estado==='Excluido')return states.excluido;return true;}
+function valeBeneficiaryColor(estado){return estado==='Activo'?'#22d3ee':estado==='Suspendido'?'#f59e0b':'#ef4444';}
+function syncValeThemeStateCheckboxes(sourceId,targetId){const source=qs(sourceId),target=qs(targetId);if(source&&target)target.checked=source.checked;}
 function buildBeneficiaries(lat,lng,total=22){
   const group=L.layerGroup();
   currentSupplyRecords=[];
@@ -2124,15 +2084,16 @@ function buildBeneficiaries(lat,lng,total=22){
     // Forzar que los puntos permanezcan dentro de Perú (bounding box aproximado)
     const pointLat=Math.max(-18.5, Math.min(1, rawLat));
     const pointLng=Math.max(-81, Math.min(-68, rawLng));
-    const connected=i%4!==0;
-    const delayed=!connected&&(i%8===0||i%11===0);
+    const estadoBeneficiario=i%9===0?'Excluido':(i%4===0?'Suspendido':'Activo');
+    if(!valeBeneficiaryStateVisible(estadoBeneficiario))continue;
     const supply={
       suministro:'SUM-ARQ-'+String(1000+i).padStart(4,'0'),
       tipoSuministro:i%5===0?'No residencial':'Residencial',
       beneficiario:names[i%names.length],
-      fechaInstalacion:connected?'2026-04-'+String(5+(i%24)).padStart(2,'0'):'Pendiente de habilitación',
-      estadoInstalacion:connected?'Conectado':'En construcción',
-      inicioConstruccion:connected?'2026-04-'+String(1+(i%26)).padStart(2,'0'):(delayed?'2026-01-'+String(3+(i%18)).padStart(2,'0'):'2026-04-'+String(1+(i%26)).padStart(2,'0')),
+      fechaInstalacion:estadoBeneficiario==='Activo'?'2026-04-'+String(5+(i%24)).padStart(2,'0'):'Pendiente de validación',
+      estadoInstalacion:estadoBeneficiario,
+      estadoBeneficiario:estadoBeneficiario,
+      inicioConstruccion:'2026-04-'+String(1+(i%26)).padStart(2,'0'),
       empresaInstaladora:companies[i%companies.length],
       servicioElectrico:i%3===0?'Sin servicio':'Con servicio',
       cocinaGLP:i%4===0?'No':'Sí',
@@ -2141,14 +2102,15 @@ function buildBeneficiaries(lat,lng,total=22){
       lat:pointLat,
       lng:pointLng,
       beneficiarios:1,
-      liquidacion:connected?1200+(i%6)*180:650+(i%5)*130
+      liquidacion:estadoBeneficiario==='Activo'?1200+(i%6)*180:650+(i%5)*130
     };
-    supply.montoPendiente=connected?((i%6===0)?260+(i%4)*120:(i%3===0?120:0)):(780+(i%7)*210);
+    supply.montoPendiente=estadoBeneficiario==='Activo'?((i%6===0)?260+(i%4)*120:(i%3===0?120:0)):(780+(i%7)*210);
     supply.nivelMorosidad=supply.montoPendiente>=1700?'Crítica':supply.montoPendiente>=1000?'Alta':supply.montoPendiente>=350?'Media':'Baja';
     currentSupplyRecords.push(supply);
-    const marker=L.circleMarker([pointLat,pointLng],{radius:7,color:connected?'#22d3ee':'#ef4444',weight:2,fillColor:connected?'#67e8f9':'#f87171',fillOpacity:.9})
-      .bindTooltip(connected?'Vivienda conectada':'Vivienda en construcción',{direction:'top',className:'beneficiary-label'})
-      .bindPopup(`<b>${supply.suministro}</b><br>${supply.beneficiario}<br>${supply.estadoInstalacion}<br>Tiempo: ${formatElapsed(supply.inicioConstruccion,supply.estadoInstalacion)}<br>Liquidación: ${formatMoney(supply.liquidacion)}`)
+    const color=valeBeneficiaryColor(estadoBeneficiario);
+    const marker=L.circleMarker([pointLat,pointLng],{radius:7,color:color,weight:2,fillColor:color,fillOpacity:.9})
+      .bindTooltip('Beneficiario '+estadoBeneficiario.toLowerCase(),{direction:'top',className:'beneficiary-label'})
+      .bindPopup(`<b>${supply.suministro}</b><br>${supply.beneficiario}<br>Estado: ${supply.estadoInstalacion}<br>Liquidación: ${formatMoney(supply.liquidacion)}`)
       .on('click',e=>selectMapObject(supply,e.target,e.originalEvent))
       .addTo(group);
     supply._layer=marker;
@@ -2451,7 +2413,7 @@ function buildAuthorizedWorkshopsLayer(p){
   });
   return group;
 }
-function updateOverlayVisibility(){if(!leafletMap)return;[coberturaLayer,troncalLayer,ramalesLayer,concesionariaLayer,districtLayer,selectedDistrictLayer,morosityLayer,consumptionHeatLayer,workshopLayer,estratoLayer,beneficiaryLayer].forEach(layer=>{if(layer&&leafletMap.hasLayer(layer))leafletMap.removeLayer(layer)});const coberturaOn=qs('#layerCobertura')?.checked??true;const troncalOn=qs('#layerTroncal')?.checked??false;const ramalesOn=qs('#layerRamales')?.checked??false;const concesionariaOn=qs('#layerConcesionaria')?.checked??false;const distritosOn=qs('#layerDistritos')?.checked??false;const morosidadOn=qs('#layerMorosidad')?.checked??false;const consumoOn=qs('#layerConsumo')?.checked??false;const talleresOn=qs('#layerTalleres')?.checked??false;const estratoOn=qs('#layerEstrato')?.checked??true;const beneficiariosOn=qs('#layerBeneficiarios')?.checked??true;if(coberturaLayer&&coberturaOn)coberturaLayer.addTo(leafletMap);if(troncalLayer&&troncalOn)troncalLayer.addTo(leafletMap);if(ramalesLayer&&ramalesOn)ramalesLayer.addTo(leafletMap);if(concesionariaLayer&&concesionariaOn)concesionariaLayer.addTo(leafletMap);if(districtLayer&&distritosOn)districtLayer.addTo(leafletMap);if(selectedDistrictLayer&&selectedDistrictId&&distritosOn)selectedDistrictLayer.addTo(leafletMap);if(morosityLayer&&morosidadOn)morosityLayer.addTo(leafletMap);if(consumptionHeatLayer&&consumoOn)consumptionHeatLayer.addTo(leafletMap);if(workshopLayer&&talleresOn)workshopLayer.addTo(leafletMap);qs('#morosityLegend')?.classList.toggle('open',!!morosidadOn);qs('#consumptionLegend')?.classList.toggle('open',!!consumoOn);if(!talleresOn)resetWorkshopAnalytics();if(estratoLayer&&estratoOn)estratoLayer.addTo(leafletMap);if(beneficiaryLayer&&beneficiariosOn)beneficiaryLayer.addTo(leafletMap);uploadedMapLayers.forEach(item=>{if(item.layer&&item.visible&&!leafletMap.hasLayer(item.layer))item.layer.addTo(leafletMap)});if(projectMarker&&!leafletMap.hasLayer(projectMarker))projectMarker.addTo(leafletMap);if(consumoOn)renderConsumptionThemePanel();else if(qs('#supplyDetails')?.getAttribute('data-theme')==='consumo'){if(selectedObjects.length)renderSupplyDetails(selectedObjects[selectedObjects.length-1]?.data);else if(activeAreaRecords.length)renderAreaSelectionDetails(activeAreaRecords,'Área seleccionada');else renderSupplyDetails(null);}updateActiveLayerLabel();}
+function updateOverlayVisibility(){if(!leafletMap)return;[coberturaLayer,troncalLayer,ramalesLayer,concesionariaLayer,districtLayer,selectedDistrictLayer,morosityLayer,consumptionHeatLayer,workshopLayer,estratoLayer,beneficiaryLayer].forEach(layer=>{if(layer&&leafletMap.hasLayer(layer))leafletMap.removeLayer(layer)});const coberturaOn=qs('#layerCobertura')?.checked??true;const troncalOn=qs('#layerTroncal')?.checked??false;const ramalesOn=qs('#layerRamales')?.checked??false;const concesionariaOn=qs('#layerConcesionaria')?.checked??false;const distritosOn=qs('#layerDistritos')?.checked??false;const densityOn=qs('#layerThemeValeDensity')?.checked??false;const talleresOn=qs('#layerTalleres')?.checked??false;const estratoOn=qs('#layerEstrato')?.checked??true;const stateLayers=getValeBeneficiaryLayerStates();const beneficiariosOn=stateLayers.activo||stateLayers.suspendido||stateLayers.excluido;if(coberturaLayer&&coberturaOn)coberturaLayer.addTo(leafletMap);if(troncalLayer&&troncalOn)troncalLayer.addTo(leafletMap);if(ramalesLayer&&ramalesOn)ramalesLayer.addTo(leafletMap);if(concesionariaLayer&&concesionariaOn)concesionariaLayer.addTo(leafletMap);if(districtLayer&&distritosOn)districtLayer.addTo(leafletMap);if(selectedDistrictLayer&&selectedDistrictId&&distritosOn)selectedDistrictLayer.addTo(leafletMap);if(morosityLayer&&densityOn)morosityLayer.addTo(leafletMap);if(workshopLayer&&talleresOn)workshopLayer.addTo(leafletMap);qs('#morosityLegend')?.classList.toggle('open',false);qs('#consumptionLegend')?.classList.toggle('open',false);if(!talleresOn)resetWorkshopAnalytics();if(estratoLayer&&estratoOn)estratoLayer.addTo(leafletMap);const p=currentProject();if(beneficiariosOn&&p){beneficiaryLayer=buildBeneficiaries(p.lat,p.lng,Math.min(38,Math.max(16,Math.round(p.beneficiarios/6))));if(beneficiaryLayer)beneficiaryLayer.addTo(leafletMap);}if(projectMarker&&!leafletMap.hasLayer(projectMarker))projectMarker.addTo(leafletMap);updateActiveLayerLabel();}
 function getLayerExtension(filename=''){return filename.split('.').pop().toLowerCase();}
 function baseFilename(filename){const dot=filename.lastIndexOf('.');return dot>0?filename.slice(0,dot):filename;}
 function splitCoordinateText(text){return text.trim().split(String.fromCharCode(10)).join(' ').split(String.fromCharCode(9)).join(' ').split(' ').filter(Boolean);}
@@ -2488,7 +2450,7 @@ if(activeMapTool==='polygon'&&drawingPoints.length>2){clearTempShape();const rec
 drawingPoints=[];circleCenter=null;tempShape=null;}
 function clearDrawings(){if(drawLayer)drawLayer.clearLayers();drawingPoints=[];circleCenter=null;tempShape=null;activeAreaRecords=[];clearObjectSelection(false);renderSupplyDetails(null);renderAreaStats(null);updateStatsByCurrentSelection();showToast('Dibujos, selecciones y estadísticas limpiados');}
 function setBaseLayer(name){if(!leafletMap)return;Object.values(baseLayers).forEach(layer=>{if(layer&&leafletMap.hasLayer(layer))leafletMap.removeLayer(layer)});if(baseLayers[name])baseLayers[name].addTo(leafletMap);activeBase=name;updateActiveLayerLabel();}
-function updateActiveLayerLabel(){const label=qs('#activeLayerLabel');if(!label)return;const baseLabels={osm:'OpenStreetMap',dark:'Carto Dark',sat:'Satélite'};const active=[];const coberturaOn=qs('#layerCobertura')?.checked??true;const troncalOn=qs('#layerTroncal')?.checked??false;const ramalesOn=qs('#layerRamales')?.checked??false;const concesionariaOn=qs('#layerConcesionaria')?.checked??false;const morosidadOn=qs('#layerMorosidad')?.checked??false;const consumoOn=qs('#layerConsumo')?.checked??false;const talleresOn=qs('#layerTalleres')?.checked??false;const estratoOn=qs('#layerEstrato')?.checked??true;const beneficiariosOn=qs('#layerBeneficiarios')?.checked??true;const distritosOn=qs('#layerDistritos')?.checked??false;if(estratoOn)active.push('Estrato INEI');if(beneficiariosOn)active.push('Beneficiarios');if(coberturaOn)active.push('Cobertura');if(distritosOn)active.push(selectedDistrictId?'Distrito: '+districtNameById(selectedDistrictId):'Distritos delimitados');if(talleresOn)active.push('Capa: talleres autorizados');if(activeSatelliteMode)active.push('Satelital: '+satelliteModeLabel(activeSatelliteMode));const userLayers=(uploadedMapLayers||[]).filter(x=>x.visible).length;if(userLayers)active.push(userLayers+' capa(s) cargada(s)');label.innerHTML='Capas activas: <span style="color:#67e8f9">'+(active.join(' · ')||'Sin capas')+'</span><br><span style="color:#cbd5e1;font-size:10px">Mapa base: '+(baseLabels[activeBase]||activeBase)+'</span>';}
+function updateActiveLayerLabel(){const label=qs('#activeLayerLabel');if(!label)return;const baseLabels={osm:'OpenStreetMap',dark:'Carto Dark',sat:'Satélite'};const active=[];const coberturaOn=qs('#layerCobertura')?.checked??true;const troncalOn=qs('#layerTroncal')?.checked??false;const ramalesOn=qs('#layerRamales')?.checked??false;const concesionariaOn=qs('#layerConcesionaria')?.checked??false;const densityOn=qs('#layerThemeValeDensity')?.checked??false;const talleresOn=qs('#layerTalleres')?.checked??false;const estratoOn=qs('#layerEstrato')?.checked??true;const beneficiaryStates=getValeBeneficiaryLayerStates();const distritosOn=qs('#layerDistritos')?.checked??false;if(estratoOn)active.push('Estrato INEI');if(beneficiaryStates.activo)active.push('Beneficiario activo');if(beneficiaryStates.suspendido)active.push('Beneficiario suspendido');if(beneficiaryStates.excluido)active.push('Beneficiario excluido');if(coberturaOn)active.push('Cobertura');if(densityOn)active.push('Temático: densidad de beneficiarios');if(distritosOn)active.push(selectedDistrictId?'Distrito: '+districtNameById(selectedDistrictId):'Distritos delimitados');if(talleresOn)active.push('Capa: talleres autorizados');if(activeSatelliteMode)active.push('Satelital: '+satelliteModeLabel(activeSatelliteMode));label.innerHTML='Capas activas: <span style="color:#67e8f9">'+(active.join(' · ')||'Sin capas')+'</span><br><span style="color:#cbd5e1;font-size:10px">Mapa base: '+(baseLabels[activeBase]||activeBase)+'</span>';}
 
 function cycleBaseLayer(){const order=['osm','dark','sat'];setBaseLayer(order[(order.indexOf(activeBase)+1)%order.length]);showToast('Capa base cambiada a '+activeBase.toUpperCase());}
 function syncMapToProject(p){if(!leafletMap)return;if(typeof p.lat!=='number'||typeof p.lng!=='number'){p.lat=-12.0464;p.lng=-77.0428;}const coords=[p.lat,p.lng];leafletMap.setView(coords,15,{animate:true});if(projectMarker){projectMarker.setLatLng(coords).setPopupContent(`<b>${p.nombre}</b><br>${p.distrito}, ${p.departamento}<br>${p.beneficiarios} beneficiarios estimados`);}if(estratoLayer){estratoLayer.clearLayers();estratoLayer.addData(buildEstratoGeoJSON(p.lat,p.lng));}if(beneficiaryLayer&&leafletMap.hasLayer(beneficiaryLayer))leafletMap.removeLayer(beneficiaryLayer);beneficiaryLayer=buildBeneficiaries(p.lat,p.lng,Math.min(38,Math.max(16,Math.round(p.beneficiarios/6))));if(gasLayer&&leafletMap.hasLayer(gasLayer))leafletMap.removeLayer(gasLayer);gasLayer=buildGasNetwork(p.lat,p.lng);if(coberturaLayer&&leafletMap.hasLayer(coberturaLayer))leafletMap.removeLayer(coberturaLayer);coberturaLayer=buildCoberturaLayer(p.lat,p.lng);if(troncalLayer&&leafletMap.hasLayer(troncalLayer))leafletMap.removeLayer(troncalLayer);troncalLayer=buildTroncalLayer(p.lat,p.lng);if(ramalesLayer&&leafletMap.hasLayer(ramalesLayer))leafletMap.removeLayer(ramalesLayer);ramalesLayer=buildRamalesLayer(p.lat,p.lng);if(concesionariaLayer&&leafletMap.hasLayer(concesionariaLayer))leafletMap.removeLayer(concesionariaLayer);concesionariaLayer=buildConcesionariaLayer(p.lat,p.lng);if(morosityLayer&&leafletMap.hasLayer(morosityLayer))leafletMap.removeLayer(morosityLayer);morosityLayer=buildMorosityHeatLayer(p.lat,p.lng);if(consumptionHeatLayer&&leafletMap.hasLayer(consumptionHeatLayer))leafletMap.removeLayer(consumptionHeatLayer);consumptionHeatLayer=buildConsumptionHeatLayer(p.lat,p.lng);if(workshopLayer&&leafletMap.hasLayer(workshopLayer))leafletMap.removeLayer(workshopLayer);workshopLayer=buildAuthorizedWorkshopsLayer(p);resetWorkshopAnalytics();refreshDistrictLayer();updateOverlayVisibility();refreshSatelliteAnalysisLayer();}
@@ -2708,7 +2670,7 @@ function renderProjectEvidences(project){const box=qs('#evidencePhotos'),count=q
 function openEvidencePreviewByIndex(projectId,index){const p=projects.find(x=>x.id===projectId)||currentProject();const ev=getProjectEvidences(p)[index];if(!ev)return;qs('#previewTitle').textContent=ev.title||'Vista de evidencia';qs('#previewMeta').textContent=ev.meta||('Registro fotográfico asociado a '+p.nombre);qs('#previewImage').src=evidenceImageData[ev.key]||'';openModal('evidencePreviewModal');}
 function initEvidenceImages(){qsa('img[data-img-key]').forEach(img=>{img.src=evidenceImageData[img.dataset.imgKey]||''});}
 initEvidenceImages();
-renderProjectEvidences(currentProject());qs('#createBtn')?.addEventListener('click',()=>openProjectModal());qs('#docsBtn').onclick=()=>openModal('docsModal');qs('#syncAppsBtn')?.addEventListener('click',()=>openModal('syncAppsModal'));qs('#validateSyncBtn')?.addEventListener('click',validateSyncConnection);qs('#syncNowBtn')?.addEventListener('click',syncTargetNow);document.addEventListener('click',e=>{const syncBtn=e.target.closest('[data-sync-app]');if(syncBtn)simulateAppSync(syncBtn.dataset.syncApp);const checkBtn=e.target.closest('[data-check-app]');if(checkBtn)checkSyncDifferences(checkBtn.dataset.checkApp);});qs('#profileBtn').onclick=()=>openModal('profileModal');qs('#navSolicitudes')?.addEventListener('click',openSolicitudesEnvironment);qs('#navValidaciones')?.addEventListener('click',openValidacionesEnvironment);qs('#navGnvDashboard')?.addEventListener('click',openGnvDashboardEnvironment);qs('#backGnvDashboardBtn')?.addEventListener('click',closeSolicitudesEnvironment);qs('#newSolicitudBtn')?.addEventListener('click',()=>{selectedSolicitudId='SOL-2026-0002';renderSolicitudes();selectSolicitud(selectedSolicitudId);showToast('Formulario de nueva solicitud preparado')});qs('#massValidateBtn')?.addEventListener('click',()=>{showToast('Validación masiva preparada para expedientes filtrados')});['#solSearch','#solEstadoFilter','#solDistritoFilter','#solOrigenFilter'].forEach(id=>qs(id)?.addEventListener('input',renderSolicitudes));['#valSearch','#valTipoFilter','#valRiskFilter','#valResponsableFilter'].forEach(id=>qs(id)?.addEventListener('input',renderValidaciones));qs('#uploadedBtn').onclick=()=>qs('#uploadedPop').classList.toggle('open');qs('#aiRobotBtn')?.addEventListener('click',()=>openModal('aiAssistantModal'));qs('#aiSendBtn')?.addEventListener('click',()=>{const input=qs('#aiChatInput');handleAiQuery(input?.value||'');if(input)input.value='';});qs('#aiChatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();qs('#aiSendBtn')?.click();}});qsa('[data-ai-query]').forEach(btn=>btn.addEventListener('click',()=>handleAiQuery(btn.dataset.aiQuery)));qs('#searchInput').oninput=renderProjects;qs('#locationSearchBtn')?.addEventListener('click',searchLocation);qs('#locationSearchInput')?.addEventListener('input',e=>{const value=e.target.value.trim();if(value.length>=2)renderLocationResults(localLocationMatches(value));else qs('#locationSearchResults')?.classList.remove('open');});qs('#locationSearchInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchLocation();}});qs('#mapasBtn')?.addEventListener('click',()=>toggleMapPanel('#mapsPanel','#mapasBtn'));qs('#capasBtn')?.addEventListener('click',()=>toggleMapPanel('#layersPanel','#capasBtn'));qs('#tematicosBtn')?.addEventListener('click',()=>toggleMapPanel('#themesPanel','#tematicosBtn'));qs('#sateliteBtn')?.addEventListener('click',toggleSatellitePanel);qsa('input[name="satelliteMode"]').forEach(radio=>radio.addEventListener('change',e=>setSatelliteLayerMode(e.target.value)));qs('#uploadLayerBtn')?.addEventListener('click',openUploadLayerWorkflow);qs('#chooseLayerFileBtn')?.addEventListener('click',()=>qs('#layerFileInput')?.click());qs('#layerFileInput')?.addEventListener('change',e=>{const file=e.target.files?.[0];if(!file)return;pendingLayerFile=file;const ext=getLayerExtension(file.name);qs('#selectedLayerFileName').textContent=file.name;qs('#layerDetectedType').value=friendlyLayerType(ext);if(!qs('#layerDisplayName').value)qs('#layerDisplayName').value=baseFilename(file.name);});qs('#confirmLayerUploadBtn')?.addEventListener('click',confirmLayerUpload);qs('#mapPanelToggleBtn')?.addEventListener('click',()=>{clearRightPanelForMapSelection(true);});qs('#compareMapBtn').onclick=()=>{if(leafletMap&&estratoLayer)leafletMap.fitBounds(estratoLayer.getBounds(),{padding:[40,40]});};qsa('input[name="baseMap"]').forEach(radio=>radio.addEventListener('change',e=>{clearSatelliteMode();setBaseLayer(e.target.value);closeMapPanels();showToast('Mapa base: '+e.target.parentElement.innerText.trim())}));['#layerEstrato','#layerBeneficiarios','#layerCobertura','#layerTroncal','#layerRamales','#layerConcesionaria','#layerMorosidad','#layerConsumo','#layerTalleres'].forEach(id=>qs(id)?.addEventListener('change',()=>{updateOverlayVisibility();showToast('Capas actualizadas')}));qs('#layerDistritos')?.addEventListener('change',e=>{toggleDistrictsFeature(e.target.checked);showToast(e.target.checked?'Capa Distritos activada':'Capa Distritos desactivada')});qs('#districtDepartmentSelect')?.addEventListener('change',()=>{selectedDistrictId=null;renderDistrictList();refreshDistrictLayer();});qs('#districtProvinceSelect')?.addEventListener('change',()=>{selectedDistrictId=null;renderDistrictList();refreshDistrictLayer();});qs('#closeDistrictsPanelBtn')?.addEventListener('click',()=>{const chk=qs('#layerDistritos');if(chk)chk.checked=false;toggleDistrictsFeature(false);});enableDistrictPanelDrag();renderDistrictList();document.addEventListener('click',e=>{const insideToolbar=e.target.closest('.gis-toolbar');const insidePanel=e.target.closest('.map-floating-panel');if(!insideToolbar&&!insidePanel)closeMapPanels();});const satelliteDateSelect=qs('#dateLayerSelect');
+renderProjectEvidences(currentProject());qs('#createBtn')?.addEventListener('click',()=>openProjectModal());qs('#docsBtn').onclick=()=>openModal('docsModal');qs('#syncAppsBtn')?.addEventListener('click',()=>openModal('syncAppsModal'));qs('#validateSyncBtn')?.addEventListener('click',validateSyncConnection);qs('#syncNowBtn')?.addEventListener('click',syncTargetNow);document.addEventListener('click',e=>{const syncBtn=e.target.closest('[data-sync-app]');if(syncBtn)simulateAppSync(syncBtn.dataset.syncApp);const checkBtn=e.target.closest('[data-check-app]');if(checkBtn)checkSyncDifferences(checkBtn.dataset.checkApp);});qs('#profileBtn').onclick=()=>openModal('profileModal');qs('#navSolicitudes')?.addEventListener('click',openSolicitudesEnvironment);qs('#navValidaciones')?.addEventListener('click',openValidacionesEnvironment);qs('#navGnvDashboard')?.addEventListener('click',openGnvDashboardEnvironment);qs('#backGnvDashboardBtn')?.addEventListener('click',closeSolicitudesEnvironment);qs('#newSolicitudBtn')?.addEventListener('click',()=>{selectedSolicitudId='SOL-2026-0002';renderSolicitudes();selectSolicitud(selectedSolicitudId);showToast('Formulario de nueva solicitud preparado')});qs('#massValidateBtn')?.addEventListener('click',()=>{showToast('Validación masiva preparada para expedientes filtrados')});['#solSearch','#solEstadoFilter','#solDistritoFilter','#solOrigenFilter'].forEach(id=>qs(id)?.addEventListener('input',renderSolicitudes));['#valSearch','#valTipoFilter','#valRiskFilter','#valResponsableFilter'].forEach(id=>qs(id)?.addEventListener('input',renderValidaciones));qs('#uploadedBtn').onclick=()=>qs('#uploadedPop').classList.toggle('open');qs('#aiRobotBtn')?.addEventListener('click',()=>openModal('aiAssistantModal'));qs('#aiSendBtn')?.addEventListener('click',()=>{const input=qs('#aiChatInput');handleAiQuery(input?.value||'');if(input)input.value='';});qs('#aiChatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();qs('#aiSendBtn')?.click();}});qsa('[data-ai-query]').forEach(btn=>btn.addEventListener('click',()=>handleAiQuery(btn.dataset.aiQuery)));qs('#searchInput').oninput=renderProjects;qs('#locationSearchBtn')?.addEventListener('click',searchLocation);qs('#locationSearchInput')?.addEventListener('input',e=>{const value=e.target.value.trim();if(value.length>=2)renderLocationResults(localLocationMatches(value));else qs('#locationSearchResults')?.classList.remove('open');});qs('#locationSearchInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchLocation();}});qs('#mapasBtn')?.addEventListener('click',()=>toggleMapPanel('#mapsPanel','#mapasBtn'));qs('#capasBtn')?.addEventListener('click',()=>toggleMapPanel('#layersPanel','#capasBtn'));qs('#tematicosBtn')?.addEventListener('click',()=>toggleMapPanel('#themesPanel','#tematicosBtn'));qs('#sateliteBtn')?.addEventListener('click',toggleSatellitePanel);qsa('input[name="satelliteMode"]').forEach(radio=>radio.addEventListener('change',e=>setSatelliteLayerMode(e.target.value)));qs('#uploadLayerBtn')?.addEventListener('click',openUploadLayerWorkflow);qs('#chooseLayerFileBtn')?.addEventListener('click',()=>qs('#layerFileInput')?.click());qs('#layerFileInput')?.addEventListener('change',e=>{const file=e.target.files?.[0];if(!file)return;pendingLayerFile=file;const ext=getLayerExtension(file.name);qs('#selectedLayerFileName').textContent=file.name;qs('#layerDetectedType').value=friendlyLayerType(ext);if(!qs('#layerDisplayName').value)qs('#layerDisplayName').value=baseFilename(file.name);});qs('#confirmLayerUploadBtn')?.addEventListener('click',confirmLayerUpload);qs('#mapPanelToggleBtn')?.addEventListener('click',()=>{clearRightPanelForMapSelection(true);});qs('#compareMapBtn').onclick=()=>{if(leafletMap&&estratoLayer)leafletMap.fitBounds(estratoLayer.getBounds(),{padding:[40,40]});};qsa('input[name="baseMap"]').forEach(radio=>radio.addEventListener('change',e=>{clearSatelliteMode();setBaseLayer(e.target.value);closeMapPanels();showToast('Mapa base: '+e.target.parentElement.innerText.trim())}));['#layerEstrato','#layerBeneficiarios','#layerCobertura','#layerTroncal','#layerRamales','#layerConcesionaria','#layerMorosidad','#layerConsumo','#layerTalleres'].forEach(id=>qs(id)?.addEventListener('change',()=>{updateOverlayVisibility();showToast('Capas actualizadas')}));qs('#layerDistritos')?.addEventListener('change',e=>{toggleDistrictsFeature(e.target.checked);showToast(e.target.checked?'Capa Distritos activada':'Capa Distritos desactivada')});qs('#districtDepartmentSelect')?.addEventListener('change',()=>{selectedDistrictId=null;renderDistrictList();refreshDistrictLayer();});qs('#districtProvinceSelect')?.addEventListener('change',()=>{selectedDistrictId=null;renderDistrictList();refreshDistrictLayer();});qs('#closeDistrictsPanelBtn')?.addEventListener('click',()=>{const chk=qs('#layerDistritos');if(chk)chk.checked=false;toggleDistrictsFeature(false);});enableDistrictPanelDrag();renderDistrictList();document.addEventListener('click',e=>{const insideToolbar=e.target.closest('.gis-toolbar');const insidePanel=e.target.closest('.map-floating-panel');if(!insideToolbar&&!insidePanel)closeMapPanels();});document.addEventListener('change',e=>{const id=e.target?.id;if(!['layerBenActivo','layerBenSuspendido','layerBenExcluido','layerThemeValeDensity','layerThemeValeActive','layerThemeValeSuspended','layerThemeValeExcluded'].includes(id))return;const pairs={layerBenActivo:'layerThemeValeActive',layerThemeValeActive:'layerBenActivo',layerBenSuspendido:'layerThemeValeSuspended',layerThemeValeSuspended:'layerBenSuspendido',layerBenExcluido:'layerThemeValeExcluded',layerThemeValeExcluded:'layerBenExcluido'};if(pairs[id]&&qs('#'+pairs[id]))qs('#'+pairs[id]).checked=e.target.checked;updateOverlayVisibility();showToast('Capas actualizadas');});const satelliteDateSelect=qs('#dateLayerSelect');
 if(satelliteDateSelect){
   satelliteDateSelect.onchange=e=>{
     if(activeSatelliteMode) refreshSatelliteAnalysisLayer();
@@ -2895,6 +2857,31 @@ function renderFiseDashboard(){
 }
 function fiseBeneficiaryColor(estado){return estado==='Activo'?'#22d3ee':estado==='Suspendido'?'#f59e0b':'#ef4444';}
 function fiseBeneficiaryFill(estado){return estado==='Activo'?'#67e8f9':estado==='Suspendido'?'#fde68a':'#f87171';}
+function fiseVisibleBeneficiaryStates(){
+  return {
+    Activo: qs('#fiseLayerActive')?.checked??true,
+    Suspendido: qs('#fiseLayerSuspended')?.checked??true,
+    Excluido: qs('#fiseLayerExcluded')?.checked??true
+  };
+}
+function fiseAnyBeneficiaryStateVisible(){
+  const states=fiseVisibleBeneficiaryStates();
+  return states.Activo||states.Suspendido||states.Excluido;
+}
+function fiseMirrorBeneficiaryState(sourceId,targetId){
+  const source=qs(sourceId),target=qs(targetId);
+  if(source&&target)target.checked=source.checked;
+}
+function fiseRefreshBeneficiaryVisibility(){
+  if(!fiseBeneficiaryLayer||!fiseLeafletMap)return;
+  fiseBeneficiaryLayer.clearLayers();
+  fiseBuildBeneficiariesOnMap();
+  if(fiseAnyBeneficiaryStateVisible()){
+    if(!fiseLeafletMap.hasLayer(fiseBeneficiaryLayer))fiseBeneficiaryLayer.addTo(fiseLeafletMap);
+  }else if(fiseLeafletMap.hasLayer(fiseBeneficiaryLayer)){
+    fiseLeafletMap.removeLayer(fiseBeneficiaryLayer);
+  }
+}
 // Comprueba si un punto está dentro del bounding box aproximado de Perú
 function isInsidePeru(lat,lng){
   const latMin = -18.35, latMax = 0.3, lngMin = -81.35, lngMax = -68.65;
@@ -2916,9 +2903,11 @@ function fiseBuildBeneficiariesOnMap(){
   let data=fiseBeneficiariesData;
   if(geo==='departamentos'&&deptVal)data=data.filter(r=>r.departamento===deptVal);
   if(geo==='region')data=data.filter(r=>fiseDeptToRegion(r.departamento)===regionVal);
+  const visibleStates=fiseVisibleBeneficiaryStates();
   // Muestreo representativo para no saturar el mapa (máx 200 marcadores)
   const sampled=data.length>200?data.sort(()=>Math.random()-.5).slice(0,200):data;
   sampled.forEach(b=>{
+    if(!visibleStates[b.estado])return;
     if(fiseActiveKpiFilter==='active'&&b.estado!=='Activo')return;
     if(fiseActiveKpiFilter==='suspended'&&b.estado!=='Suspendido')return;
     if(fiseActiveKpiFilter==='coverage'&&b.zona!=='Rural')return;
@@ -3225,8 +3214,16 @@ qs('#fiseMapPanelToggleBtn')?.addEventListener('click',()=>{
   showToast('Panel derecho limpio. Seleccione beneficiarios en el mapa.');
 });
 qsa('input[name="fiseBaseMap"]').forEach(r=>r.addEventListener('change',e=>{fiseSetBaseLayer(e.target.value);if(e.target.value!=='sat')fiseCloseMapPanels();showToast('Mapa base: '+e.target.value.toUpperCase());}));
-qs('#fiseLayerBeneficiarios')?.addEventListener('change',e=>{if(!fiseBeneficiaryLayer||!fiseLeafletMap)return; e.target.checked?fiseBeneficiaryLayer.addTo(fiseLeafletMap):fiseLeafletMap.removeLayer(fiseBeneficiaryLayer);});
-qs('#fiseLayerRegion')?.addEventListener('change',e=>{if(!fiseRegionOverlayLayer||!fiseLeafletMap)return; e.target.checked?fiseRegionOverlayLayer.addTo(fiseLeafletMap):fiseLeafletMap.removeLayer(fiseRegionOverlayLayer);});
+[
+  ['#fiseLayerActive','#fiseLayerActive','Beneficiario activo'],
+  ['#fiseLayerSuspended','#fiseLayerSuspended','Beneficiario suspendido'],
+  ['#fiseLayerExcluded','#fiseLayerExcluded','Beneficiario excluido']
+].forEach(([sourceId,targetId,label])=>{
+  qs(sourceId)?.addEventListener('change',()=>{
+    fiseRefreshBeneficiaryVisibility();
+    showToast(label+' actualizado en el mapa');
+  });
+});
 qs('#fiseLayerHeat')?.addEventListener('change',e=>{
   if(!fiseLeafletMap)return;
   if(e.target.checked){
