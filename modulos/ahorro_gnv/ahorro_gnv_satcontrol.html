@@ -1043,12 +1043,7 @@ const gnvBaseDashboard={
   services:[['Uso particular',145412],['Taxi',16441],['Transporte',6182],['Colectivo',3279],['Taxi cofinanciado',912],['Movilidad escolar',203]],
   regions:[['Lima',135879],['Callao',10205],['Ica',9935],['Cusco',5051],['La Libertad',3680],['Piura',2788],['Lambayeque',2296],['Junín',1422],['Ancash',689]],
   workshops:[['Agn Ingenieros - Surquillo I',9785],['GM Conversiones - Lima I',4047],['Rufigas - Ves I',3867],['Autogas Jireh - Jesús María I',3765],['Agn Ingenieros - SJL I',3012],['Corporación Perú Gas F.J.A',2885]],
-  alerts:[
-    {tag:'Morosidad',title:'Cartera crítica en Lima Metropolitana',detail:'S/ 5.1 MM concentrados en 3 distritos. Reforzar cobranza y reconfirmación de pagos.',tone:'neg'},
-    {tag:'Liquidaciones',title:'3,799 liquidaciones registradas en el último corte',detail:'El flujo financiero supera en 11% el promedio del trimestre.',tone:'pos'},
-    {tag:'Meta',title:'Meta nacional al 78.2%',detail:'Se requiere acelerar 4,859 conversiones para alcanzar la proyección de junio.',tone:'neg'},
-    {tag:'Operación',title:'14 talleres con alta productividad',detail:'Aportan 61% de las conversiones ejecutadas del periodo.',tone:'pos'}
-  ]
+  alerts:[]
 };
 function gnvFmtNum(v){return Math.round(v).toLocaleString('es-PE');}
 function gnvFmtMoney(v){return 'S/ '+Math.round(v).toLocaleString('es-PE');}
@@ -1119,7 +1114,7 @@ function gnvDashboardModel(){
     scope, factor, cut, labels, conversionsMonthly, liquidationsMonthly, morosityMonthly, accConversions, accLiquidations, totals,
     fuel:scaleList(gnvBaseDashboard.fuel), status:scaleList(gnvBaseDashboard.status), services:scaleList(gnvBaseDashboard.services), regions,
     workshops:scaleList(gnvBaseDashboard.workshops,6),
-    alerts:gnvBaseDashboard.alerts.map((a,i)=>({tag:a.tag,title:a.title,detail:a.detail,value:i===0?gnvFmtMoney(totals.morosity*.34):i===1?gnvFmtNum(liquidationsMonthly[liquidationsMonthly.length-1]||0):i===2?totals.compliance+'%':gnvFmtNum(totals.workshops)}))
+    alerts:(gnvBaseDashboard.alerts||[]).map((a,i)=>({tag:a.tag,title:a.title,detail:a.detail,value:i===0?gnvFmtMoney(totals.morosity*.34):i===1?gnvFmtNum(liquidationsMonthly[liquidationsMonthly.length-1]||0):i===2?totals.compliance+'%':gnvFmtNum(totals.workshops)}))
   };
 }
 function gnvBuildComboChart(labels,bars,line,labelBars,labelLine,lineColor='#22d3ee',barColor='#38bdf8'){
@@ -1161,9 +1156,9 @@ function renderGnvDashboard(){
   qs('#gnvServiceChart').innerHTML=gnvBuildBars(model.services,'orange');
   qs('#gnvWorkshopChart').innerHTML=gnvBuildBars(model.workshops,'');
   qs('#gnvMorositySummary').innerHTML=gnvBuildMorositySummary(model);
-  qs('#gnvAlertsWrap').innerHTML=model.alerts.map((a,idx)=>`<div class="gnv-alert"><span>${a.tag}</span><b>${a.title}</b><p>${a.detail}</p><div style="margin-top:10px">${idx%2===0?`<span class="gnv-chip-negative">${a.value}</span>`:`<span class="gnv-chip-positive">${a.value}</span>`}</div></div>`).join('');
+  const alertsWrap=qs('#gnvAlertsWrap'); if(alertsWrap) alertsWrap.innerHTML=model.alerts.map((a,idx)=>`<div class="gnv-alert"><span>${a.tag}</span><b>${a.title}</b><p>${a.detail}</p><div style="margin-top:10px">${idx%2===0?`<span class="gnv-chip-negative">${a.value}</span>`:`<span class="gnv-chip-positive">${a.value}</span>`}</div></div>`).join('');
   const rows=(model.regions||[]).slice(0,8).map(([name,val],i)=>{const liq=Math.round(val*.994); const mor=Math.round(model.totals.morosity*(.28/(i+2))); const progress=Math.min(99,Math.max(18,Math.round(val*100/Math.max(model.totals.goal,1)))); return `<tr><td>${name}</td><td>${gnvFmtNum(val)}</td><td>${gnvFmtNum(liq)}</td><td>${gnvFmtMoney(mor)}</td><td>${progress}%</td><td>${progress>75?'<span class="gnv-chip-positive">En meta</span>':'<span class="gnv-chip-negative">Requiere impulso</span>'}</td></tr>`;}).join('');
-  qs('#gnvScopeTableBody').innerHTML=rows;
+  const scopeTableBody=qs('#gnvScopeTableBody'); if(scopeTableBody) scopeTableBody.innerHTML=rows;
   const now=new Date(); const dd=String(now.getDate()).padStart(2,'0'),mm=String(now.getMonth()+1).padStart(2,'0'),yy=now.getFullYear(),hh=String(now.getHours()).padStart(2,'0'),mi=String(now.getMinutes()).padStart(2,'0');
   const live=qs('#gnvLiveTime'); if(live) live.textContent=`Última actualización ${dd}/${mm}/${yy} · ${hh}:${mi}`;
 }
